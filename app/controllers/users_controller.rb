@@ -3,6 +3,11 @@ class UsersController < ApplicationController
   
   def authenticate
     user = User.find_or_initialize_by(line_id: user_params[:line_id])
+
+    if user.new_record? || user.name != user_params[:name]
+      user.name = user_params[:name]
+    end
+    
     if user.save
       render json: { status: 'success', user: { id: user.id } }
     else
@@ -14,7 +19,7 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:line_id)
+    params.require(:user).permit(:line_id, :name)
   end
   
   def verify_api_token

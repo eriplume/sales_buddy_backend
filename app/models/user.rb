@@ -4,10 +4,15 @@ class User < ApplicationRecord
   belongs_to :group
 
   validates :line_id, presence: true
-  validates :group_id, presence: true
   validates :notifications, inclusion: { in: [true, false] }
 
   enum role: { general: 0, leader: 1, admin: 2 }
+
+  def self.authenticate_with_line_id(line_id, name)
+    user = find_or_initialize_by(line_id:)
+    user.name = name if user.new_record? || user.name != name
+    user
+  end
 
   private
 

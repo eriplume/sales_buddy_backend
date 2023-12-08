@@ -2,9 +2,7 @@ class UsersController < ApplicationController
   before_action :verify_api_token
 
   def authenticate
-    user = User.find_or_initialize_by(line_id: user_params[:line_id])
-
-    user.name = user_params[:name] if user.new_record? || user.name != user_params[:name]
+    user = User.authenticate_with_line_id(user_params[:line_id], user_params[:name])
 
     if user.save
       render json: { status: 'success', user: { id: user.id } }

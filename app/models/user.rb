@@ -8,6 +8,12 @@ class User < ApplicationRecord
 
   enum role: { general: 0, leader: 1, admin: 2 }
 
+  def self.authenticate_with_line_id(line_id, name)
+    user = find_or_initialize_by(line_id:)
+    user.name = name if user.new_record? || user.name != name
+    user
+  end
+
   private
 
   def set_default_group

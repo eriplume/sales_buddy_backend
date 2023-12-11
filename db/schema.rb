@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_112822) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_151324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customer_records", force: :cascade do |t|
+    t.integer "count", null: false
+    t.bigint "dairy_record_id", null: false
+    t.bigint "customer_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_type_id"], name: "index_customer_records_on_customer_type_id"
+    t.index ["dairy_record_id"], name: "index_customer_records_on_dairy_record_id"
+  end
 
   create_table "customer_types", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +60,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_112822) do
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 
+  add_foreign_key "customer_records", "customer_types"
+  add_foreign_key "customer_records", "dairy_records"
   add_foreign_key "dairy_records", "users"
   add_foreign_key "users", "groups"
 end

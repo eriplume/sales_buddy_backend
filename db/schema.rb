@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_012410) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_105944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dairy_records", force: :cascade do |t|
+    t.integer "total_amount", null: false
+    t.integer "total_number", null: false
+    t.integer "count", null: false
+    t.float "set_rate", null: false
+    t.float "average_spend", null: false
+    t.date "date", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_dairy_records_on_user_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
@@ -31,5 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_012410) do
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 
+  add_foreign_key "dairy_records", "users"
   add_foreign_key "users", "groups"
 end

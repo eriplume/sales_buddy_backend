@@ -2,6 +2,7 @@ class User < ApplicationRecord
   before_validation :set_default_group, on: :create
 
   belongs_to :group
+  has_many :dairy_records, dependent: :destroy
 
   validates :line_id, presence: true
   validates :notifications, inclusion: { in: [true, false] }

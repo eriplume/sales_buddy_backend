@@ -10,12 +10,12 @@ class DairyRecord < ApplicationRecord
 
   # セット率の計算
   def calculate_set_rate
-    self.set_rate = count > 0 ? (total_number.to_f / count) : 0
+    self.set_rate = count.positive? ? (total_number.to_f / count) : 0
   end
 
   # 客単価の計算
   def calculate_average_spend
-    self.average_spend = total_number > 0 ? (total_amount.to_f / total_number) : 0
+    self.average_spend = total_number.positive? ? (total_amount.to_f / total_number) : 0
   end
 
   # レコードが保存される前に計算メソッドを呼び出す

@@ -1,7 +1,7 @@
 class DairyRecordsController < ApplicationController
   def index
     user_id = request.headers['user']
-    @dairy_records = DairyRecord.where(user_id: user_id)
+    @dairy_records = DairyRecord.where(user_id:)
     render json: @dairy_records
   end
 
@@ -11,7 +11,7 @@ class DairyRecordsController < ApplicationController
 
     if service.call
       render json: {
-        status: 'success', 
+        status: 'success',
         dairy_record: { date: @dairy_record.date }
       }
     else
@@ -20,7 +20,7 @@ class DairyRecordsController < ApplicationController
   end
 
   private
-      
+
   def dairy_record_params
     params.require(:dairy_record).permit(:total_amount, :total_number, :count, :date, :user_id)
   end

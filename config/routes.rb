@@ -4,6 +4,6 @@ Rails.application.routes.draw do
       post 'authenticate', to: 'users#authenticate'
     end
   end
-  resources :dairy_records, only: [:index, :create]
+  resources :dairy_records, only: %i[index create]
   resources :customer_records, only: [:index]
 end

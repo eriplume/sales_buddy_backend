@@ -4,7 +4,7 @@ class DairyRecord < ApplicationRecord
   validates :total_amount, presence: true
   validates :total_number, presence: true
   validates :count, presence: true
-  validates :date, presence: true, uniqueness: true
+  validates :date, presence: true, uniqueness: { scope: :user_id }
 
   has_many :customer_records, dependent: :destroy
 

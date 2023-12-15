@@ -2,7 +2,7 @@ class DairyRecordsController < ApplicationController
   def index
     user_id = request.headers['user']
     @dairy_records = DairyRecord.where(user_id:)
-    render json: @dairy_records
+    render json: @dairy_records.as_json(only: %i[average_spend count date set_rate total_amount total_number])
   end
 
   def create

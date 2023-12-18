@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   end
   resources :dairy_records, only: %i[index create]
   resources :customer_records, only: [:index]
+  resources :customer_types, only: [:index]
 end

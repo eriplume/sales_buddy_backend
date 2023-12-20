@@ -7,16 +7,16 @@ class WeeklyReportsController < ApplicationController
       
   def create
     @weekly_report = WeeklyReport.new(report_params)
-      if @weekly_report.save
-        render json: { status: 'success' }
-      else
-        render json: @weekly_report.errors, status: :unprocessable_entity
-      end
+    if @weekly_report.save
+      render json: { status: 'success' }
+    else
+      render json: @weekly_report.errors, status: :unprocessable_entity
+    end
   end
 
   private
     
   def report_params
-    params.require(:weekly_report).permit(:content, :start_date, :end_date)
+    params.require(:weekly_report).permit(:content, :start_date, :end_date, :user_id)
   end
 end

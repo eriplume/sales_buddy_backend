@@ -17,6 +17,6 @@ class WeeklyTargetsController < ApplicationController
   private
         
   def target_params
-    params.require(:weekly_target).permit(:target, :start_date, :end_date)
+    params.require(:weekly_target).permit(:target, :start_date, :end_date, :user_id)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_15_004902) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_20_065707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,8 +61,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_15_004902) do
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 
+  create_table "weekly_reports", force: :cascade do |t|
+    t.text "content", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "start_date"], name: "index_weekly_reports_on_user_id_and_start_date", unique: true
+    t.index ["user_id"], name: "index_weekly_reports_on_user_id"
+  end
+
   add_foreign_key "customer_records", "customer_types"
   add_foreign_key "customer_records", "dairy_records"
   add_foreign_key "dairy_records", "users"
   add_foreign_key "users", "groups"
+  add_foreign_key "weekly_reports", "users"
 end

@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   belongs_to :group
   has_many :dairy_records, dependent: :destroy
+  has_many :weekly_reports, dependent: :destroy
 
   validates :line_id, presence: true
   validates :notifications, inclusion: { in: [true, false] }

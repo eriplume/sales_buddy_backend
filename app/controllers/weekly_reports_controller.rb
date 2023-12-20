@@ -4,7 +4,7 @@ class WeeklyReportsController < ApplicationController
     @weekly_reports = WeeklyReport.where(user_id:)
     render json: @weekly_reports.as_json(only: %i[content start_date end_date])
   end
-      
+
   def create
     @weekly_report = WeeklyReport.new(report_params)
     if @weekly_report.save
@@ -15,7 +15,7 @@ class WeeklyReportsController < ApplicationController
   end
 
   private
-    
+
   def report_params
     params.require(:weekly_report).permit(:content, :start_date, :end_date, :user_id)
   end

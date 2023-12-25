@@ -17,3 +17,14 @@ Group.find_or_create_by(name: 'default')
 # customer_types.each do |type|
 #   CustomerType.find_or_create_by!(name: type[:name])
 # end
+
+# Jobデータ
+Job.find_or_create_by(name: 'ウィンドウレイアウト')
+Job.find_or_create_by(name: '店内レイアウト')
+Job.find_or_create_by(name: '商品説明会')
+Job.find_or_create_by(name: 'シフト作成')
+Job.find_or_create_by(name: 'DM作成')
+Job.find_or_create_by(name: 'ストック整理')
+Job.find_or_create_by(name: '在調')
+Job.find_or_create_by(name: 'スタイリング撮影')
+

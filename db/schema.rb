@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_20_072159) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_25_031937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_072159) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "job_records", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "user_id", null: false
+    t.bigint "job_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_job_records_on_job_id"
+    t.index ["user_id", "job_id", "date"], name: "index_job_records_on_user_id_and_job_id_and_date", unique: true
+    t.index ["user_id"], name: "index_job_records_on_user_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_jobs_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "line_id", null: false
     t.boolean "notifications", default: false
@@ -86,6 +104,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_072159) do
   add_foreign_key "customer_records", "customer_types"
   add_foreign_key "customer_records", "dairy_records"
   add_foreign_key "dairy_records", "users"
+  add_foreign_key "job_records", "jobs"
+  add_foreign_key "job_records", "users"
   add_foreign_key "users", "groups"
   add_foreign_key "weekly_reports", "users"
   add_foreign_key "weekly_targets", "users"

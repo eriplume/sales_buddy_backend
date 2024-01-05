@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     collection do
       post 'authenticate', to: 'users#authenticate'
     end
+    member do
+      get 'notifications', to: 'users#show'
+      patch 'update_notifications', to: 'users#update_notifications'
+    end
   end
   resources :dairy_records, only: %i[index create]
   resources :customer_records, only: [:index]

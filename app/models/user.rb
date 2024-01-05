@@ -4,6 +4,7 @@ class User < ApplicationRecord
   belongs_to :group
   has_many :dairy_records, dependent: :destroy
   has_many :weekly_reports, dependent: :destroy
+  has_many :monthly_reports, dependent: :destroy
   has_many :weekly_targets, dependent: :destroy
   has_many :job_records, dependent: :destroy
 

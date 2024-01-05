@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_25_031937) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_05_062224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_031937) do
     t.index ["name"], name: "index_jobs_on_name", unique: true
   end
 
+  create_table "monthly_reports", force: :cascade do |t|
+    t.text "content", null: false
+    t.string "month", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "month"], name: "index_monthly_reports_on_user_id_and_month", unique: true
+    t.index ["user_id"], name: "index_monthly_reports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "line_id", null: false
     t.boolean "notifications", default: false
@@ -106,6 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_25_031937) do
   add_foreign_key "dairy_records", "users"
   add_foreign_key "job_records", "jobs"
   add_foreign_key "job_records", "users"
+  add_foreign_key "monthly_reports", "users"
   add_foreign_key "users", "groups"
   add_foreign_key "weekly_reports", "users"
   add_foreign_key "weekly_targets", "users"

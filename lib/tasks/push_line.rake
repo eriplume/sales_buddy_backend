@@ -10,7 +10,24 @@ namespace :push_line do
     users.each do |user|
       message = {
         type: 'text',
-        text: "1週間おつかれさまでした🌼\n\n今週はどうでしたか？\n1週間の振り返りを入力しましょう！\n\nこちらから入力↓\nhttps://sales-buddy-psi.vercel.app/weekly"
+        text: "1週間お疲れ様でした $$\n\n今週はどうでしたか？\n頑張ったことの振り返りをしましょう $\n\nこちらから入力↓\nhttps://sales-buddy-psi.vercel.app/weekly",
+        emojis: [
+          {
+            index: 11,
+            productId: "5ac1bfd5040ab15980c9b435",
+            emojiId: "098"
+          },
+          {
+            "index": 12,
+            "productId": "5ac21184040ab15980c9b43a",
+            "emojiId": "195"
+          },
+          {
+            "index": 44,
+            "productId": "5ac21e6c040ab15980c9b444",
+            "emojiId": "220"
+          },
+        ]
       }
       response = client.push_message(user.line_id, message)
       p response

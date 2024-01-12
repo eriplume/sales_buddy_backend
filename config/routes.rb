@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :customer_records, only: [:index]
   resources :customer_types, only: [:index]
   resources :weekly_reports, only: %i[index create]
-  resources :monthly_reports, only: %i[index create]
+  resources :monthly_reports, only: %i[index create update]
   resources :weekly_targets, only: %i[index create]
   resources :job_records, only: %i[index create]
 end

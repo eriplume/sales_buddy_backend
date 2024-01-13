@@ -1,6 +1,6 @@
 class JobRecordsController < ApplicationController
   def index
-    user_id = request.headers['user']
+    user_id = @current_user.id
     @job_records = JobRecord.includes(:job).where(user_id:)
     render json: @job_records.map { |record|
       {

@@ -1,6 +1,6 @@
 class WeeklyReportsController < ApplicationController
   def index
-    user_id = request.headers['user']
+    user_id = @current_user.id
     @weekly_reports = WeeklyReport.where(user_id:)
     render json: @weekly_reports.as_json(only: %i[content start_date end_date])
   end

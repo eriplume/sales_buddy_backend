@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
+  require 'jwt' 
+
   before_action :verify_api_token, only: [:authenticate]
+  skip_before_action :authenticate_user, only: [:authenticate]
 
   def authenticate
     user = User.authenticate_with_line_id(user_params[:line_id], user_params[:name])
-
     if user.save
-      render json: { status: 'success', user: { id: user.id } }
+      # JWTトークンを生成
+      token = encode_jwt(user.id)
+      # トークンを返す
+      render json: { status: 'success', user: { token: token, user_id: user.id } }
     else
       Rails.logger.info "User validation failed: #{user.errors.full_messages}"
       render json: { status: 'error', errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -44,5 +49,10 @@ class UsersController < ApplicationController
     api_token = request.headers['Authorization']&.split(' ')&.last
     head :unauthorized unless api_token && ActiveSupport::SecurityUtils.secure_compare(api_token,
                                                                                        ENV.fetch('API_TOKEN', nil))
+  end
+
+  def encode_jwt(user_id)
+    payload = { user_id: user_id}
+    JWT.encode(payload, Rails.application.secrets.secret_key_base)
   end
 end

@@ -2,7 +2,7 @@ class MonthlyReportsController < ApplicationController
   before_action :set_monthly_report, only: [:update]
 
   def index
-    user_id = request.headers['user']
+    user_id = @current_user.id
     @monthly_reports = MonthlyReport.where(user_id:)
     render json: @monthly_reports.as_json(only: %i[id content month])
   end

@@ -1,6 +1,6 @@
 class WeeklyTargetsController < ApplicationController
   def index
-    user_id = request.headers['user']
+    user_id = @current_user.id
     @weekly_targets = WeeklyTarget.where(user_id:)
     render json: @weekly_targets.as_json(only: %i[target start_date end_date])
   end

@@ -13,7 +13,7 @@ module Authenticable
 
     begin
       # トークンをデコードしてユーザーを検証
-      payload = JWT.decode(token, ENV["SECRET_KEY_BASE"]).first
+      payload = JWT.decode(token, ENV.fetch('SECRET_KEY_BASE', nil)).first
       @current_user = User.find_by(id: payload['user_id'])
     rescue JWT::DecodeError
       # 認証エラーの場合

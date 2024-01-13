@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user, only: [:authenticate]
 
   def authenticate
-    user = authenticate_user
+    user = authenticate_line_user
     if user.save
       # JWTトークンを生成
       token = encode_jwt(user.id)
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:notifications)
   end
 
-  def authenticate_user
+  def authenticate_line_user
     User.authenticate_with_line_id(user_params[:line_id], user_params[:name])
   end
 
@@ -57,6 +57,6 @@ class UsersController < ApplicationController
 
   def encode_jwt(user_id)
     payload = { user_id: }
-    JWT.encode(payload, ENV["SECRET_KEY_BASE"])
+    JWT.encode(payload, ENV.fetch('SECRET_KEY_BASE', nil))
   end
 end

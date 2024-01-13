@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user, only: [:authenticate]
 
   def authenticate
-    user = User.authenticate_with_line_id(user_params[:line_id], user_params[:name])
+    user = authenticate_user
     if user.save
       # JWTトークンを生成
       token = encode_jwt(user.id)
@@ -43,6 +43,10 @@ class UsersController < ApplicationController
 
   def user_notifications_params
     params.require(:user).permit(:notifications)
+  end
+
+  def authenticate_user
+    User.authenticate_with_line_id(user_params[:line_id], user_params[:name])
   end
 
   def verify_api_token

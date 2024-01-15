@@ -10,7 +10,7 @@ namespace :push_line do
     users.each do |user|
       message = {
         type: 'text',
-        text: "1週間お疲れ様でした $$\n\n今週はどうでしたか？\n頑張ったことの振り返りをしましょう $\n\nこちらから入力↓\nhttps://sales-buddy-psi.vercel.app/weekly",
+        text: "1週間お疲れ様でした $$\n\n今週はどうでしたか？\n頑張ったことの振り返りをしましょう $\n\nこちらから入力↓\nhttps://sbuddy-apparel.com/weekly",
         emojis: [
           {
             index: 11,

@@ -18,9 +18,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
-    if user
-      render json: { notifications: user.notifications }
+    if @current_user
+      render json: {
+        notifications: @current_user.notifications,
+        group_name: @current_user.group.name
+      }
     else
       render json: { error: 'User not found' }, status: :not_found
     end

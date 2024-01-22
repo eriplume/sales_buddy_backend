@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: [] do
+  resources :users, only: [:show] do
     collection do
       post 'authenticate', to: 'users#authenticate'
     end
@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   resources :monthly_reports, only: %i[index create update]
   resources :weekly_targets, only: %i[index create]
   resources :job_records, only: %i[index create]
+  resources :groups, only: %i[create]
+  post 'groups/join', to: 'group_memberships#join'
 end

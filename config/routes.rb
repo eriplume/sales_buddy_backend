@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :monthly_reports, only: %i[index create update]
   resources :weekly_targets, only: %i[index create]
   resources :job_records, only: %i[index create]
+  resources :tasks, only: %i[index create update]
   resources :groups, only: %i[create]
   post 'groups/join', to: 'group_memberships#join'
 end

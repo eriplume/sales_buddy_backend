@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     if @current_user
       render json: {
         notifications: @current_user.notifications,
+        group_id: @current_user.group.id,
         group_name: @current_user.group.name
       }
     else

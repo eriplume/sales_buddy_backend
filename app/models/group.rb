@@ -2,6 +2,7 @@ class Group < ApplicationRecord
   has_secure_password
   validates :name, presence: true, length: { maximum: 20 }
   has_many :users, dependent: :nullify
+  has_many :tasks, dependent: :destroy
 
   before_destroy :assign_default_group_to_users, unless: -> { id == default_group_id }
 

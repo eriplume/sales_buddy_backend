@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :monthly_reports, dependent: :destroy
   has_many :weekly_targets, dependent: :destroy
   has_many :job_records, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   validates :line_id, presence: true
   validates :notifications, inclusion: { in: [true, false] }

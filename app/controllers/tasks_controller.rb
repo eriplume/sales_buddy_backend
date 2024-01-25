@@ -4,20 +4,12 @@ class TasksController < ApplicationController
   def index
     user_id = @current_user.id
     group_id = @current_user.group_id
-    
+
     user_tasks = Task.where(user_id:).includes(:user).order(:deadline)
     group_tasks = Task.where(group_id:).includes(:user).order(:deadline)
     render json: {
-      user_tasks: user_tasks.map { |task| 
-        task.as_json(only: %i[id title is_group_task importance deadline user_id group_id is_completed],
-        methods: [:user_name, :completed_by_name]
-        ).transform_keys { |key| key.to_s.camelize(:lower) }
-      },
-      group_tasks: group_tasks.map { |task| 
-        task.as_json(only: %i[id title is_group_task importance deadline user_id group_id is_completed],
-        methods: [:user_name, :completed_by_name]
-        ).transform_keys { |key| key.to_s.camelize(:lower) }
-      }
+      user_tasks: transform_tasks(user_tasks),
+      group_tasks: transform_tasks(group_tasks)
     }
   end
 
@@ -60,5 +52,14 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :is_group_task, :importance, :deadline, :user_id, :group_id)
+  end
+
+  def transform_tasks(tasks)
+    tasks.map do |task|
+      task.as_json(
+        only: %i[id title is_group_task importance deadline user_id group_id is_completed],
+        methods: %i[user_name completed_by_name]
+      ).transform_keys { |key| key.to_s.camelize(:lower) }
+    end
   end
 end

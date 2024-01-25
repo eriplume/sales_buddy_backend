@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_18_055605) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_25_051805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_18_055605) do
     t.index ["user_id"], name: "index_monthly_reports_on_user_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "title", null: false
+    t.boolean "is_group_task", null: false
+    t.date "deadline", null: false
+    t.integer "importance", null: false
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "is_completed", default: false
+    t.bigint "completed_by_id"
+    t.index ["completed_by_id"], name: "index_tasks_on_completed_by_id"
+    t.index ["group_id"], name: "index_tasks_on_group_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "line_id", null: false
     t.boolean "notifications", default: false
@@ -118,6 +134,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_18_055605) do
   add_foreign_key "job_records", "jobs"
   add_foreign_key "job_records", "users"
   add_foreign_key "monthly_reports", "users"
+  add_foreign_key "tasks", "groups"
+  add_foreign_key "tasks", "users"
+  add_foreign_key "tasks", "users", column: "completed_by_id"
   add_foreign_key "users", "groups"
   add_foreign_key "weekly_reports", "users"
   add_foreign_key "weekly_targets", "users"

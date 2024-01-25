@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[update destroy]
+  before_action :set_task, only: %i[update destroy complete]
 
   def index
     user_id = @current_user.id
@@ -9,12 +9,14 @@ class TasksController < ApplicationController
     group_tasks = Task.where(group_id:).includes(:user).order(:deadline)
     render json: {
       user_tasks: user_tasks.map { |task| 
-        task.as_json(only: %i[id title is_group_task importance deadline user_id group_id],methods: :user_name)
-          .transform_keys { |key| key.to_s.camelize(:lower) }
+        task.as_json(only: %i[id title is_group_task importance deadline user_id group_id is_completed],
+        methods: [:user_name, :completed_by_name]
+        ).transform_keys { |key| key.to_s.camelize(:lower) }
       },
       group_tasks: group_tasks.map { |task| 
-        task.as_json(only: %i[id title is_group_task importance deadline user_id group_id],methods: :user_name)
-          .transform_keys { |key| key.to_s.camelize(:lower) }
+        task.as_json(only: %i[id title is_group_task importance deadline user_id group_id is_completed],
+        methods: [:user_name, :completed_by_name]
+        ).transform_keys { |key| key.to_s.camelize(:lower) }
       }
     }
   end
@@ -32,6 +34,15 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       render json: @task
+    else
+      render json: @task.errors, status: :unprocessable_entity
+    end
+  end
+
+  def complete
+    user_id = @current_user.id
+    if @task.update(is_completed: true, completed_by_id: user_id)
+      render json: @task, status: :ok
     else
       render json: @task.errors, status: :unprocessable_entity
     end

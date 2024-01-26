@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[index]
-  
+
   def index
     members = @group.users.select(:id, :name, :image_url)
-    render json: {members: transform_members(members)}
+    render json: { members: transform_members(members) }
   end
 
   def create

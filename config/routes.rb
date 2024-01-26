@@ -20,6 +20,6 @@ Rails.application.routes.draw do
       patch 'complete', to: 'tasks#complete'
     end
   end
-  resources :groups, only: %i[create]
+  resources :groups, only: %i[index create]
   post 'groups/join', to: 'group_memberships#join'
 end

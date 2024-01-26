@@ -16,9 +16,10 @@ class User < ApplicationRecord
 
   enum role: { general: 0, leader: 1, admin: 2 }
 
-  def self.authenticate_with_line_id(line_id, name)
+  def self.authenticate_with_line_id(line_id, name, image_url)
     user = find_or_initialize_by(line_id:)
     user.name = name if user.new_record? || user.name != name
+    user.image_url = image_url if user.new_record? || user.image_url != image_url
     user
   end
 

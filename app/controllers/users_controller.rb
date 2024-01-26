@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:line_id, :name)
+    params.require(:user).permit(:line_id, :name, :image_url)
   end
 
   def user_notifications_params
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def authenticate_line_user
-    User.authenticate_with_line_id(user_params[:line_id], user_params[:name])
+    User.authenticate_with_line_id(user_params[:line_id], user_params[:name], user_params[:image_url])
   end
 
   def verify_api_token

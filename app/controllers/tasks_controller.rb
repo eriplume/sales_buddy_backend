@@ -58,7 +58,7 @@ class TasksController < ApplicationController
     tasks.map do |task|
       task.as_json(
         only: %i[id title is_group_task importance deadline user_id group_id is_completed],
-        methods: %i[user_name completed_by_name]
+        methods: %i[user_name user_image_url completed_by_name]
       ).transform_keys { |key| key.to_s.camelize(:lower) }
     end
   end

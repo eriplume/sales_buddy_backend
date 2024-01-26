@@ -9,6 +9,7 @@ class Task < ApplicationRecord
   validates :importance, presence: true
 
   delegate :name, to: :user, prefix: true
+  delegate :image_url, to: :user, prefix: true
 
   def completed_by_name
     completed_by&.name

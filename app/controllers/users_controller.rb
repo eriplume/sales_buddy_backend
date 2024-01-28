@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
+  def show_current_user
     if @current_user
       render json: {
         notifications: @current_user.notifications,
@@ -30,11 +30,18 @@ class UsersController < ApplicationController
   end
 
   def update_notifications
-    user = User.find(params[:id])
-    if user.update(notifications: user_notifications_params[:notifications])
+    if @current_user.update(notifications: user_notifications_params[:notifications])
       render json: { success: true }
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def admin_status
+    if @current_user
+      render json: { admin: @current_user.admin? }
+    else
+      render json: { error: 'User not found' }, status: :not_found
     end
   end
 

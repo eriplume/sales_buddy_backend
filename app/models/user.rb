@@ -23,6 +23,12 @@ class User < ApplicationRecord
     user
   end
 
+  def as_custom_json
+    as_json(only: %i[id name group_id]).merge({
+                                                roleValue: role_before_type_cast
+                                              })
+  end
+
   private
 
   def set_default_group

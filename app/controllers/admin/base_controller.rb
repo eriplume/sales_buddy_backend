@@ -1,9 +1,11 @@
-class Admin::BaseController < ApplicationController
-  before_action :check_admin
+module Admin
+  class BaseController < ApplicationController
+    before_action :check_admin
 
-  private
+    private
 
-  def check_admin
-    render json: { error: 'Unauthorized' }, status: :forbidden unless @current_user.admin?
+    def check_admin
+      render json: { error: 'Unauthorized' }, status: :forbidden unless @current_user.admin?
+    end
   end
 end

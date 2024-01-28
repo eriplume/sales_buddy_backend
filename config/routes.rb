@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       patch 'update_notifications', to: 'users#update_notifications'
     end
   end
-  
+
   resources :dairy_records, only: %i[index create]
   resources :customer_records, only: [:index]
   resources :customer_types, only: [:index]
@@ -24,6 +24,6 @@ Rails.application.routes.draw do
   post 'groups/join', to: 'group_memberships#join'
 
   namespace :admin do
-    resources :users, only: %i[index show edit update destroy]
+    resources :users, only: %i[index update destroy]
   end
 end

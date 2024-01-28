@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  resources :users, only: [:show] do
+  resources :users do
     collection do
       post 'authenticate', to: 'users#authenticate'
-    end
-    member do
-      get 'notifications', to: 'users#show'
+      get 'current', to: 'users#show_current_user'
+      get 'admin_status'
       patch 'update_notifications', to: 'users#update_notifications'
     end
   end
+  
   resources :dairy_records, only: %i[index create]
   resources :customer_records, only: [:index]
   resources :customer_types, only: [:index]
@@ -22,4 +22,8 @@ Rails.application.routes.draw do
   end
   resources :groups, only: %i[index create]
   post 'groups/join', to: 'group_memberships#join'
+
+  namespace :admin do
+    resources :users, only: %i[index show edit update destroy]
+  end
 end

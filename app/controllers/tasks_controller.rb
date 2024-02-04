@@ -16,6 +16,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
+      TaskNotificationService.new(@task).call if @task.is_group_task
       render json: { status: 'success' }
     else
       logger.debug @task.errors.full_messages

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :completed_tasks, class_name: 'Task', foreign_key: 'completed_by_id', dependent: :nullify,
                              inverse_of: :completed_by
+  has_many :comments, dependent: :destroy
 
   validates :line_id, presence: true
   validates :notifications, inclusion: { in: [true, false] }

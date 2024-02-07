@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_25_104412) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_04_085649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_comments_on_task_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "customer_records", force: :cascade do |t|
     t.integer "count", null: false
@@ -69,6 +79,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_104412) do
     t.index ["name"], name: "index_jobs_on_name", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "monthly_reports", force: :cascade do |t|
     t.text "content", null: false
     t.string "month", null: false
@@ -77,6 +97,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_104412) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "month"], name: "index_monthly_reports_on_user_id_and_month", unique: true
     t.index ["user_id"], name: "index_monthly_reports_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_rooms_on_group_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -129,12 +157,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_104412) do
     t.index ["user_id"], name: "index_weekly_targets_on_user_id"
   end
 
+  add_foreign_key "comments", "tasks"
+  add_foreign_key "comments", "users"
   add_foreign_key "customer_records", "customer_types"
   add_foreign_key "customer_records", "dairy_records"
   add_foreign_key "dairy_records", "users"
   add_foreign_key "job_records", "jobs"
   add_foreign_key "job_records", "users"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "monthly_reports", "users"
+  add_foreign_key "rooms", "groups"
   add_foreign_key "tasks", "groups"
   add_foreign_key "tasks", "users"
   add_foreign_key "tasks", "users", column: "completed_by_id"

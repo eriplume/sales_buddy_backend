@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   def show_current_user
     if @current_user
       render json: {
+        id: @current_user.id,
         notifications: @current_user.notifications,
         group_id: @current_user.group.id,
         group_name: @current_user.group.name

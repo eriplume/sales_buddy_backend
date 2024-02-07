@@ -21,9 +21,9 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy!
   end
-    
+
   private
-    
+
   def comment_params
     params.require(:comment).permit(:content).merge(task_id: params[:task_id])
   end

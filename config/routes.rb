@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     member do
       patch 'complete', to: 'tasks#complete'
     end
-    resources :comments, only: [:create, :update, :destroy]
+    resources :comments, only: %i[create update destroy]
   end
   resources :groups, only: %i[index create]
   post 'groups/join', to: 'group_memberships#join'

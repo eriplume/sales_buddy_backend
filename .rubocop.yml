@@ -20,6 +20,10 @@ Style/Documentation:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes.rb'
+
 Metrics/MethodLength:
   Enabled: false
 

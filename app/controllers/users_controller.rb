@@ -22,6 +22,7 @@ class UsersController < ApplicationController
       render json: {
         id: @current_user.id,
         notifications: @current_user.notifications,
+        task_notifications: @current_user.task_notifications,
         group_id: @current_user.group.id,
         group_name: @current_user.group.name
       }
@@ -32,6 +33,14 @@ class UsersController < ApplicationController
 
   def update_notifications
     if @current_user.update(notifications: user_notifications_params[:notifications])
+      render json: { success: true }
+    else
+      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def update_task_notifications
+    if @current_user.update(task_notifications: user_task_notifications_params[:task_notifications])
       render json: { success: true }
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -54,6 +63,10 @@ class UsersController < ApplicationController
 
   def user_notifications_params
     params.require(:user).permit(:notifications)
+  end
+
+  def user_task_notifications_params
+    params.require(:user).permit(:task_notifications)
   end
 
   def authenticate_line_user

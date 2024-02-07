@@ -9,7 +9,7 @@ class TaskNotificationService
       config.channel_token = ENV.fetch('LINE_CHANNEL_TOKEN', nil)
     end
 
-    users = User.where(group_id: @task.group_id, notifications: true)
+    users = User.where(group_id: @task.group_id, task_notifications: true)
     users.each do |user|
       message = {
         type: 'text',

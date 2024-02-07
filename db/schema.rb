@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_04_085649) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_07_091605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,6 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_04_085649) do
     t.datetime "updated_at", null: false
     t.string "name", null: false
     t.string "image_url"
+    t.boolean "task_notifications", default: false
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 

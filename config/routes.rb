@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'current', to: 'users#show_current_user'
       get 'admin_status'
       patch 'update_notifications', to: 'users#update_notifications'
+      patch 'update_task_notifications', to: 'users#update_task_notifications'
     end
   end
 

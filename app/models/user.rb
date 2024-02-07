@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
   validates :line_id, presence: true
   validates :notifications, inclusion: { in: [true, false] }
+  validates :task_notifications, inclusion: { in: [true, false] }
 
   enum role: { general: 0, leader: 1, admin: 2 }
 

@@ -6,7 +6,7 @@ class DairyRecordsController < ApplicationController
   end
 
   def create
-    @dairy_record = DairyRecord.new(dairy_record_params)
+    @dairy_record = @current_user.dairy_records.new(dairy_record_params)
     service = CustomerRecordCreateService.new(@dairy_record, params[:customer_counts])
 
     if service.call
@@ -22,6 +22,6 @@ class DairyRecordsController < ApplicationController
   private
 
   def dairy_record_params
-    params.require(:dairy_record).permit(:total_amount, :total_number, :count, :date, :user_id)
+    params.require(:dairy_record).permit(:total_amount, :total_number, :count, :date)
   end
 end

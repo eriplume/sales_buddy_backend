@@ -13,10 +13,9 @@ class JobRecordsController < ApplicationController
   def create
     form_data = job_record_params
     date = form_data[:date]
-    user_id = form_data[:user_id]
     job_names = form_data[:jobs]
 
-    if JobRecord.create_from_job_names(user_id, date, job_names)
+    if JobRecord.create_from_job_names(@current_user.id, date, job_names)
       render json: { status: 'success' }
     else
       render json: { error: 'Failed to create job records' }, status: :unprocessable_entity
@@ -26,6 +25,6 @@ class JobRecordsController < ApplicationController
   private
 
   def job_record_params
-    params.require(:job_record).permit(:date, :user_id, jobs: [])
+    params.require(:job_record).permit(:date, jobs: [])
   end
 end

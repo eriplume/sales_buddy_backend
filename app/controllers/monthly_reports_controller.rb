@@ -8,7 +8,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def create
-    @monthly_report = MonthlyReport.new(report_params)
+    @monthly_report = @current_user.monthly_reports.new(monthly_report_params)
     if @monthly_report.save
       render json: { status: 'success' }
     else
@@ -17,7 +17,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def update
-    if @monthly_report.update(monthly_report_params)
+    if @monthly_report.update(update_report_params)
       render json: @monthly_report
     else
       render json: @monthly_report.errors, status: :unprocessable_entity
@@ -26,12 +26,12 @@ class MonthlyReportsController < ApplicationController
 
   private
 
-  def report_params
-    params.require(:monthly_report).permit(:content, :month, :user_id)
+  def monthly_report_params
+    params.require(:monthly_report).permit(:content, :month)
   end
 
-  def monthly_report_params
-    params.require(:monthly_report).permit(:content, :id)
+  def update_report_params
+    params.require(:monthly_report).permit(:content)
   end
 
   def set_monthly_report

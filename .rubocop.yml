@@ -23,6 +23,7 @@ Metrics/CyclomaticComplexity:
 Metrics/BlockLength:
   Exclude:
     - 'config/routes.rb'
+    - "spec/**/*"
 
 Metrics/MethodLength:
   Enabled: false

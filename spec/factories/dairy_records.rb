@@ -5,7 +5,7 @@ FactoryBot.define do
     count { 2 }
     set_rate { 2.5 }
     average_spend { 10_000 }
-    sequence(:date) { |n| Date.today - n.days }
+    sequence(:date) { |n| Time.zone.today - n.days }
     association :user
   end
 end

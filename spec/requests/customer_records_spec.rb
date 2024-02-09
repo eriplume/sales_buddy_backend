@@ -5,7 +5,6 @@ RSpec.describe 'CustomerRecords', type: :request do
   let(:token) { generate_token_for_user(user) }
 
   before do
-    create(:user)
     customer_types = create_list(:customer_type, 2)
     dairy_record = create(:dairy_record, user:)
 

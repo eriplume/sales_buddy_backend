@@ -4,12 +4,6 @@ RSpec.describe 'DairyRecords', type: :request do
   let(:user) { create(:user) }
   let(:token) { generate_token_for_user(user) }
 
-  before do
-    # factoriesで定義したテスト用のデータをセットアップ
-    # userの作成
-    create(:user)
-  end
-
   describe 'GET /dairy_records' do
     before do
       # userに紐づく売上レコードを10件複製(配列)

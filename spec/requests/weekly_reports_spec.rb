@@ -4,10 +4,6 @@ RSpec.describe 'WeeklyReports', type: :request do
   let(:user) { create(:user) }
   let(:token) { generate_token_for_user(user) }
 
-  before do
-    create(:user)
-  end
-
   describe 'GET /weekly_reports' do
     before do
       create_list(:weekly_report, 5, user:)

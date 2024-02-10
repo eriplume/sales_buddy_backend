@@ -13,7 +13,7 @@ class TaskNotificationService
     users.each do |user|
       message = {
         type: 'text',
-        text: "チームタスクが登録されました$\n\n『#{@task.title}』\nhttps://sbuddy-apparel.com/team",
+        text: "チームタスクが登録されました$\n\n『#{@task.title}』\nhttps://sbuddy-apparel.com/team/task",
         emojis: [
           {
             index: 14,

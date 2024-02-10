@@ -11,8 +11,10 @@ class GroupsController < ApplicationController
     if @group.save
       @current_user.update(group_id: @group.id)
     else
-      render json: @group.errors, status: :unprocessable_entity
+      render json: { error: @group.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotUnique
+    render json: { error: 'グループ名がすでに使用されています' }, status: :unprocessable_entity
   end
 
   private

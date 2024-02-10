@@ -19,13 +19,23 @@ class UsersController < ApplicationController
 
   def show_current_user
     if @current_user
-      render json: {
-        id: @current_user.id,
-        notifications: @current_user.notifications,
-        task_notifications: @current_user.task_notifications,
-        group_id: @current_user.group.id,
-        group_name: @current_user.group.name
-      }
+      if @current_user.group
+        render json: {
+          id: @current_user.id,
+          notifications: @current_user.notifications,
+          task_notifications: @current_user.task_notifications,
+          group_id: @current_user.group.id,
+          group_name: @current_user.group.name
+        }
+      else
+        render json: {
+          id: @current_user.id,
+          notifications: @current_user.notifications,
+          task_notifications: @current_user.task_notifications,
+          group_id: nil,
+          group_name: nil
+        }
+      end
     else
       render json: { error: 'User not found' }, status: :not_found
     end

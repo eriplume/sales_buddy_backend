@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  before_validation :set_default_group, on: :create
-
-  belongs_to :group
+  belongs_to :group, optional: true
   has_many :dairy_records, dependent: :destroy
   has_many :weekly_reports, dependent: :destroy
   has_many :monthly_reports, dependent: :destroy
@@ -29,11 +27,5 @@ class User < ApplicationRecord
     as_json(only: %i[id name group_id]).merge({
                                                 roleValue: role_before_type_cast
                                               })
-  end
-
-  private
-
-  def set_default_group
-    self.group_id ||= 1 # 1はデフォルトのグループID
   end
 end

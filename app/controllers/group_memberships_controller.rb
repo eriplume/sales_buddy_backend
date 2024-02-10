@@ -5,7 +5,7 @@ class GroupMembershipsController < ApplicationController
       @current_user.update(group_id: group.id)
       render json: { status: 'success' }
     else
-      render json: { error: 'Invalid group name or password' }, status: :unprocessable_entity
+      render json: { error: 'キーワードが間違っています' }, status: :unprocessable_entity
     end
   end
 

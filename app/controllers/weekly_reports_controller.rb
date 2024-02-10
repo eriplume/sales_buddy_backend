@@ -6,7 +6,7 @@ class WeeklyReportsController < ApplicationController
   end
 
   def create
-    @weekly_report = WeeklyReport.new(report_params)
+    @weekly_report = @current_user.weekly_reports.new(report_params)
     if @weekly_report.save
       render json: { status: 'success' }
     else
@@ -17,6 +17,6 @@ class WeeklyReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:weekly_report).permit(:content, :start_date, :end_date, :user_id)
+    params.require(:weekly_report).permit(:content, :start_date, :end_date)
   end
 end

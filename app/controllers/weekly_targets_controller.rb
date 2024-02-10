@@ -6,7 +6,7 @@ class WeeklyTargetsController < ApplicationController
   end
 
   def create
-    @weekly_target = WeeklyTarget.new(target_params)
+    @weekly_target = @current_user.weekly_targets.new(target_params)
     if @weekly_target.save
       render json: { status: 'success' }
     else
@@ -17,6 +17,6 @@ class WeeklyTargetsController < ApplicationController
   private
 
   def target_params
-    params.require(:weekly_target).permit(:target, :start_date, :end_date, :user_id)
+    params.require(:weekly_target).permit(:target, :start_date, :end_date)
   end
 end

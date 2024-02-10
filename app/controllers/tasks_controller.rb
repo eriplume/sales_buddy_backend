@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = @current_user.tasks.new(task_params)
     if @task.save
       TaskNotificationService.new(@task).call if @task.is_group_task
       render json: { status: 'success' }
@@ -52,7 +52,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :is_group_task, :importance, :deadline, :user_id, :group_id)
+    params.require(:task).permit(:title, :is_group_task, :importance, :deadline, :group_id)
   end
 
   def transform_tasks(tasks)

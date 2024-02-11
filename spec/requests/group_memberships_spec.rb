@@ -7,7 +7,6 @@ RSpec.describe 'GroupMemberships', type: :request do
 
   before do
     group
-    user
   end
 
   describe 'POST /groups/join' do

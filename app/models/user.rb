@@ -11,9 +11,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :line_id, presence: true
-  validates :notifications, inclusion: { in: [true, false] }
-  validates :task_notifications, inclusion: { in: [true, false] }
-
+  validates :name, presence: true
   enum role: { general: 0, leader: 1, admin: 2 }
 
   def self.authenticate_with_line_id(line_id, name, image_url)

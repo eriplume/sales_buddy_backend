@@ -1,0 +1,16 @@
+# config/locales/ja.yml
+
+ja:
+  activerecord:
+    models:
+      group: 'チーム'
+    attributes:
+      group:
+        name: 'チーム名'
+        password_digest: 'キーワード'
+    errors:
+      models:
+        group:
+          attributes:
+            name:
+              taken: "『%{value}』はすでに使用されています"

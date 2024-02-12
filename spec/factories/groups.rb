@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :group do
-    name { 'default' }
+    name { 'group_name' }
     password { 'password' }
   end
 end

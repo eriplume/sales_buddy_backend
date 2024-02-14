@@ -1,8 +1,9 @@
 # sales buddy
+![app_logo](https://github.com/eriplume/sales_buddy_backend/assets/130767973/e85f56c8-e632-451b-b339-9ac5c5768ddf)
 
 ## サービス概要
 ### [sales buddy](https://www.sbuddy-apparel.com)
-接客を頑張っているアパレルスタッフの自己記録管理をサポートするアプリです
+アパレルスタッフの自己記録管理をサポートするアプリです
 
 ## 想定されるユーザー層
 アパレル店舗で働く人
@@ -58,12 +59,13 @@
 - 月間レポート作成機能(openAI API を使用)
 - LINE通知機能
 - 接客外業務記録機能（オートコンプリート）
+- サンプルページ（デモログイン）
 
 ### その後の機能
-- テスト機能
+- RSpecテストを追加
 - 管理者ユーザー機能
-- グループページ
-  - チャット機能
+- チーム機能
+  - チームの作成・招待機能
   - チームタスク管理機能
 
 ## 使用技術
@@ -89,4 +91,4 @@
 [フロントエンド Git hub](https://github.com/eriplume/sales_buddy)
 
 #### ER図
-[![Image from Gyazo](https://i.gyazo.com/d0df9aa332cb10359bd39066350703a7.png)](https://gyazo.com/d0df9aa332cb10359bd39066350703a7)
+[![Image from Gyazo](https://i.gyazo.com/d2e61bfc64722fa0274ca56410e8ccb7.png)](https://gyazo.com/d2e61bfc64722fa0274ca56410e8ccb7)

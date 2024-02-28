@@ -34,7 +34,9 @@ RSpec.describe 'AdminCustomerTypes', type: :request do
     context 'admin_userの場合' do
       valid_params = { customer_type: { name: 'new_customer' } }
       it '新しい客層タイプを作成する' do
-        expect { post '/admin/customer_types', headers: { 'Authorization' => "Bearer #{admin_token}" }, params: valid_params }
+        expect do
+          post '/admin/customer_types', headers: { 'Authorization' => "Bearer #{admin_token}" }, params: valid_params
+        end
           .to change(CustomerType, :count).by(+1)
         expect(response.status).to eq(200)
       end

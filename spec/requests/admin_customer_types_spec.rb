@@ -30,6 +30,28 @@ RSpec.describe 'AdminCustomerTypes', type: :request do
     end
   end
 
+  describe 'POST /admin/customer_types' do
+    context 'admin_userの場合' do
+      valid_params = { customer_type: { name: 'new_customer' } }
+      it '新しい客層タイプを作成する' do
+        expect do
+          post '/admin/customer_types', headers: { 'Authorization' => "Bearer #{admin_token}" }, params: valid_params
+        end
+          .to change(CustomerType, :count).by(+1)
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'general_userの場合' do
+      valid_params = { customer_type: { name: 'new_customer' } }
+      it '403エラーを返す' do
+        expect { post '/admin/customer_types', headers: { 'Authorization' => "Bearer #{token}" }, params: valid_params }
+          .not_to change(CustomerType, :count)
+        expect(response.status).to eq(403)
+      end
+    end
+  end
+
   describe 'PATCH /admin/customer_types/:id' do
     context 'admin_userの場合' do
       valid_params = { customer_type: { name: 'update_name' } }

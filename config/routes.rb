@@ -29,5 +29,6 @@ Rails.application.routes.draw do
     resources :users, only: %i[index update destroy]
     resources :customer_types, only: %i[index create update destroy]
     resources :dairy_records, only: %i[index destroy]
+    resources :weekly_reports, only: %i[index destroy]
   end
 end
